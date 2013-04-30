@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Database Management</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="container-narrow">
+  <div class="masthead">
+    <ul class="nav nav-pills pull-right">
+      <li class="active"><%= link_to 'Home', :root %></li>
+    </ul>
+    <h3 class="muted">DB Management Project</h3>
+  </div>
+
+  <hr>
+
+  <div class="jumbotron">
+    <h1>DB Management</h1>
+    <p class="lead">
+      A web implementation of phase three using Ruby on Rails and MySQL.
+    </p>
+  </div>
+
+  <div class="row-fluid marketing">
+    <%= yield %>
+  </div>
+
+
+
+  <hr>
+
+  <div class="footer">
+    <p>&copy; 2013 Christopher Thornton</p>
+  </div>
+
+</div>
+
+
+</body>
+</html>
