@@ -1,0 +1,16 @@
+<table class="table table-condensed table-striped">
+  <thead>
+    <tr>
+      <% attrs.each do |a| %>
+      <th><%= a %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% model.each do |m| %>
+    <tr>
+      <% attrs.each do |a| %><td><%= m.send a %></td><% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

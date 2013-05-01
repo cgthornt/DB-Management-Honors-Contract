@@ -14,7 +14,7 @@ class InitialMigration < ActiveRecord::Migration
     create_table :items do |t|
       t.integer :gamer_id
       t.string :name
-      t.string :type
+      t.string :item_type
       t.text :comments
 
       t.timestamps

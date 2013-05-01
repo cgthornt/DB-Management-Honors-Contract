@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20130430025452) do
   create_table "items", :force => true do |t|
     t.integer  "gamer_id"
     t.string   "name"
-    t.string   "type"
+    t.string   "item_type"
     t.text     "comments"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

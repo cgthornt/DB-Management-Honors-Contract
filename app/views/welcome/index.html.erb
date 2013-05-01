@@ -1,3 +1,73 @@
-<h1>Hello World!</h1>
+<!-- Contents of Table -->
+<h1>Table Contents</h1>
+<p>This contains the contents of each table.</p>
 
-<p>How are yoou?</p>
+<h3>SELECT * FROM gamers;</h3>
+<%= all_table Gamer.all, :id, :first_name, :last_name, :date_registered %>
+
+<h3>SELECT * FROM items;</h3>
+<%= all_table Item.all, :id, :gamer_id, :name, :item_type, :comments %>
+
+<h3>SELECT * FROM consoles;</h3>
+<%= all_table Console.all, :id, :name, :medium, :manufacturer %>
+
+<h3>SELECT * FROM consoles_gamers;</h3>
+<%= all_table ConsolesGamer.all, :id, :gamer_id, :console_id, :number_owned, :number_controllers, :comments %>
+
+
+<hr>
+
+<!-- Queries -->
+<h1>Queries</h1>
+<p>These are some queries from the Phase 3</p>
+
+<h3>Query 1</h3>
+<p>Shows a list of people with how many items they own, sorted by number of items</p>
+
+
+<% q1 = Gamer.
+        select('gamers.id, gamers.first_name, gamers.last_name, COUNT(items.gamer_id) AS num_items').
+        joins(:items).group('items.gamer_id').order('num_items DESC') %>
+
+<%= all_table q1, :id, :first_name, :last_name, :num_items %>
+
+<pre><code>SELECT
+  g.id, g.first_name, g.last_name, COUNT(i.gamer_id) AS num_items
+  FROM gamers g
+  LEFT JOIN items i ON i.gamer_id = g.id
+  GROUP BY i.gamer_id, g.id, g.first_name, g.last_name
+  ORDER BY num_items DESC;
+</code></pre>
+
+
+
+
+
+<h3>Query 2</h3>
+<p>Now a list of consoles and how many of them are owned within the club</p>
+<% q2 = Console.
+            select('consoles.id, consoles.name, consoles.manufacturer, SUM(consoles_gamers.number_owned) AS num_consoles').
+            joins(:consoles_gamers).group('consoles_gamers.console_id').order('num_consoles DESC, name ASC') %>
+
+<%= all_table q2, :id, :name, :manufacturer, :num_consoles %>
+
+<pre><code>SELECT
+  c.id, c.name, c.manufacturer, SUM(cg.num_owned) AS num_consoles
+FROM consoles c
+LEFT OUTER JOIN consoles_gamers cg ON cg.console_id = c.id
+GROUP BY cg.console_id, c.id, c.name, c.manufacturer
+ORDER BY num_consoles DESC, name ASC;
+</code></pre>
+
+
+
+<h3>Query 3</h3>
+<p>An inventory of items and their owners</p>
+<% q3 = Item.select('gamers.first_name, gamers.last_name, items.name, items.item_type, items.comments').joins(:gamer) %>
+
+<%= all_table q3, :first_name, :last_name, :name, :item_type, :comments %>
+<pre><code>SELECT
+  g.first_name, g.last_name, i.name, i.item_type, i.comments
+FROM items i
+LEFT JOIN gamers g ON i.gamer_id = g.id;
+</code></pre>
