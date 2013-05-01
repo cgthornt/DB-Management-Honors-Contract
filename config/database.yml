@@ -13,7 +13,7 @@ development:
 
 production:
   adapter: mysql2
-  databasee: dbmgmt_contract
+  database: dbmgmt_contract
   username: dbmgmt_contract
   password: dTCF8F23BAD9Pbsv
   pool: 5
