@@ -10,3 +10,12 @@ development:
   timeout: 5000
   socket: /var/run/mysqld/mysqld.sock
   username: root
+
+production:
+  adapter: mysql2
+  databasee: dbmgmt_contract
+  username: dbmgmt_contract
+  password: dTCF8F23BAD9Pbsv
+  pool: 5
+  timeout: 500
+  socket: /var/run/mysqld/mysqld.sock
